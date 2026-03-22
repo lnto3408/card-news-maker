@@ -2,7 +2,7 @@
 
 AI 기반 SNS 카드뉴스 제작 데스크톱 앱
 
-![Card News Maker Icon](assets/icon_512.png)
+<img src="assets/icon_512.png" alt="Card News Maker Icon" width="128">
 
 > Instagram, TikTok, Threads, X(Twitter)용 캐러셀 카드뉴스를 AI로 빠르게 만들고 바로 발행하세요.
 
