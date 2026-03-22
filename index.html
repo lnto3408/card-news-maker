@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card News Maker - AI 카드뉴스 메이커</title>
+  <meta name="description" content="AI로 전문적인 SNS 카드뉴스를 몇 분 만에 만들어보세요. Instagram, TikTok, Threads 캐러셀 포스트를 쉽고 빠르게 제작합니다.">
+  <link rel="icon" type="image/svg+xml" href="assets/icon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #3b82f6;
+      --primary-dark: #1d4ed8;
+      --bg: #0a0f1a;
+      --bg-card: #111827;
+      --bg-card-hover: #1a2332;
+      --text: #f1f5f9;
+      --text-dim: #94a3b8;
+      --accent: #22d3ee;
+      --green: #22c55e;
+      --border: #1e293b;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', 'Noto Sans KR', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Nav */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: rgba(10,15,26,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 700; font-size: 1.1rem;
+      text-decoration: none; color: var(--text);
+    }
+    .nav-logo img { width: 32px; height: 32px; border-radius: 8px; }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a {
+      color: var(--text-dim); text-decoration: none; font-size: 0.9rem;
+      font-weight: 500; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      background: var(--primary); color: white !important;
+      padding: 8px 20px; border-radius: 8px;
+      font-weight: 600; transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--primary-dark); }
+
+    /* Hero */
+    .hero {
+      padding: 140px 2rem 80px;
+      text-align: center;
+      position: relative;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 800px; height: 600px;
+      background: radial-gradient(ellipse, rgba(59,130,246,0.15), transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(34,211,238,0.1); border: 1px solid rgba(34,211,238,0.2);
+      padding: 6px 16px; border-radius: 100px;
+      font-size: 0.85rem; color: var(--accent); font-weight: 500;
+      margin-bottom: 24px;
+    }
+    .hero-badge::before {
+      content: ''; width: 6px; height: 6px;
+      background: var(--accent); border-radius: 50%;
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 800; line-height: 1.15;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #fff 30%, var(--primary) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: 1.15rem; color: var(--text-dim);
+      max-width: 600px; margin: 0 auto 40px;
+    }
+    .hero-buttons {
+      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--primary); color: white;
+      padding: 14px 32px; border-radius: 12px;
+      font-size: 1rem; font-weight: 600;
+      text-decoration: none; transition: all 0.2s;
+      border: none; cursor: pointer;
+    }
+    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: var(--text);
+      padding: 14px 32px; border-radius: 12px;
+      font-size: 1rem; font-weight: 600;
+      text-decoration: none; transition: all 0.2s;
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { background: var(--bg-card); border-color: var(--text-dim); }
+
+    .btn-icon {
+      width: 20px; height: 20px;
+    }
+
+    .hero-meta {
+      margin-top: 20px;
+      font-size: 0.85rem; color: var(--text-dim);
+    }
+    .hero-meta span { margin: 0 12px; }
+
+    /* Screenshot */
+    .screenshot-section {
+      padding: 0 2rem 80px;
+      text-align: center;
+    }
+    .screenshot-wrap {
+      max-width: 900px; margin: 0 auto;
+      border-radius: 16px; overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    }
+    .screenshot-wrap img {
+      width: 100%; display: block;
+    }
+
+    /* Features */
+    .features {
+      padding: 100px 2rem;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .section-label {
+      text-align: center;
+      font-size: 0.85rem; font-weight: 600;
+      color: var(--primary); text-transform: uppercase;
+      letter-spacing: 2px; margin-bottom: 12px;
+    }
+    .section-title {
+      text-align: center;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 800; margin-bottom: 16px;
+    }
+    .section-desc {
+      text-align: center;
+      color: var(--text-dim); font-size: 1.05rem;
+      max-width: 600px; margin: 0 auto 60px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      transition: all 0.3s;
+    }
+    .feature-card:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(59,130,246,0.3);
+      transform: translateY(-2px);
+    }
+    .feature-icon {
+      width: 48px; height: 48px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px; font-size: 1.5rem;
+    }
+    .feature-card h3 {
+      font-size: 1.15rem; font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .feature-card p {
+      color: var(--text-dim); font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* Sample Output */
+    .samples {
+      padding: 100px 2rem;
+      background: linear-gradient(180deg, transparent, rgba(59,130,246,0.03), transparent);
+    }
+    .samples-inner {
+      max-width: 1200px; margin: 0 auto;
+    }
+    .samples-showcase {
+      display: flex; justify-content: center; align-items: center;
+      gap: 40px; flex-wrap: wrap;
+    }
+    .sample-card {
+      border-radius: 16px; overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      border: 1px solid var(--border);
+      max-width: 300px;
+      transition: transform 0.3s;
+    }
+    .sample-card:hover { transform: scale(1.03); }
+    .sample-card img { width: 100%; display: block; }
+
+    /* Templates */
+    .templates {
+      padding: 80px 2rem;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .template-grid {
+      display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+      margin-top: 40px;
+    }
+    .template-chip {
+      padding: 10px 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 0.9rem; color: var(--text-dim);
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .template-chip:hover {
+      border-color: var(--primary);
+      color: var(--text);
+    }
+
+    /* Download CTA */
+    .download-section {
+      padding: 100px 2rem;
+      text-align: center;
+    }
+    .download-card {
+      max-width: 700px; margin: 0 auto;
+      background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(34,211,238,0.05));
+      border: 1px solid rgba(59,130,246,0.2);
+      border-radius: 24px;
+      padding: 60px 40px;
+    }
+    .download-card h2 {
+      font-size: 2rem; font-weight: 800;
+      margin-bottom: 16px;
+    }
+    .download-card p {
+      color: var(--text-dim); font-size: 1.05rem;
+      margin-bottom: 32px;
+    }
+    .download-info {
+      display: flex; gap: 32px; justify-content: center;
+      margin-top: 24px; font-size: 0.85rem; color: var(--text-dim);
+    }
+    .download-info div {
+      display: flex; align-items: center; gap: 6px;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 2rem;
+      text-align: center;
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-brand {
+      display: flex; align-items: center; gap: 8px;
+      font-weight: 600; font-size: 0.95rem;
+    }
+    .footer-brand img { width: 24px; height: 24px; border-radius: 6px; }
+    .footer-links {
+      display: flex; gap: 24px;
+    }
+    .footer-links a {
+      color: var(--text-dim); text-decoration: none;
+      font-size: 0.85rem; transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy {
+      color: var(--text-dim); font-size: 0.8rem;
+      width: 100%; margin-top: 16px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero { padding: 120px 1.5rem 60px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .samples-showcase { gap: 20px; }
+      .sample-card { max-width: 240px; }
+      .download-card { padding: 40px 24px; }
+      .download-info { flex-direction: column; gap: 12px; }
+      .footer-inner { justify-content: center; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <img src="assets/icon.svg" alt="Card News Maker">
+      Card News Maker
+    </a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#templates">Templates</a>
+      <a href="#download" class="nav-cta">Download</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-badge">macOS App</div>
+  <h1>AI로 만드는<br>프로 카드뉴스</h1>
+  <p>Google Gemini AI가 콘텐츠를 생성하고, 12가지 디자인 템플릿으로 Instagram, TikTok, Threads에 바로 올릴 수 있는 카드뉴스를 만들어보세요.</p>
+  <div class="hero-buttons">
+    <a href="https://github.com/lnto3408/card-news-maker/releases/latest/download/Card.News.Maker-1.0.0-arm64.dmg" class="btn-primary" id="download-btn">
+      <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      macOS 다운로드
+    </a>
+    <a href="#features" class="btn-secondary">자세히 보기</a>
+  </div>
+  <div class="hero-meta">
+    <span>v1.0.0</span>
+    <span>macOS (Apple Silicon)</span>
+    <span>549 MB</span>
+  </div>
+</section>
+
+<!-- Screenshot -->
+<section class="screenshot-section">
+  <div class="screenshot-wrap">
+    <img src="assets/screenshot_editor.png" alt="Card News Maker Editor" loading="lazy">
+  </div>
+</section>
+
+<!-- Features -->
+<section class="features" id="features">
+  <div class="section-label">Features</div>
+  <div class="section-title">필요한 모든 기능</div>
+  <p class="section-desc">콘텐츠 기획부터 SNS 발행까지, 카드뉴스 제작의 전 과정을 하나의 앱에서 해결하세요.</p>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <h3>AI 콘텐츠 생성</h3>
+      <p>Google Gemini 2.0 Flash API로 주제만 입력하면 제목, 부제, 본문을 자동 생성합니다. 뉴스 RSS 연동으로 최신 트렌드도 바로 반영할 수 있습니다.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      </div>
+      <h3>12가지 디자인 템플릿</h3>
+      <p>Dark, Gradient, Clean White, Neon, Magazine 등 12가지 프로페셔널 템플릿을 제공합니다. 14가지 컬러 프리셋으로 브랜드에 맞는 색상을 즉시 적용하세요.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      </div>
+      <h3>드래그 앤 드롭 에디터</h3>
+      <p>텍스트와 이미지 레이어를 자유롭게 배치하세요. 드래그로 위치 이동, 코너 핸들로 크기 조절, 더블클릭으로 인라인 편집이 가능합니다.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </div>
+      <h3>멀티 플랫폼 발행</h3>
+      <p>Instagram, TikTok, Threads, Twitter/X에 캐러셀 포스트로 바로 발행하세요. 플랫폼별 최적화된 캡션과 해시태그를 자동 생성합니다.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+      </div>
+      <h3>3가지 비율 지원</h3>
+      <p>1:1 정사각형, 4:5 Instagram 피드, 9:16 스토리/릴스 비율을 모두 지원합니다. 2배 해상도(1080p+)로 선명하게 내보냅니다.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><polyline points="12 12 12 21"/><polyline points="8 17 12 21 16 17"/></svg>
+      </div>
+      <h3>이미지 검색 연동</h3>
+      <p>Unsplash, Pexels 무료 이미지를 앱 안에서 바로 검색하고 적용하세요. 오버레이 투명도 조절로 텍스트 가독성도 확보할 수 있습니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Sample Output -->
+<section class="samples" id="samples">
+  <div class="samples-inner">
+    <div class="section-label">Output</div>
+    <div class="section-title">완성된 카드뉴스 예시</div>
+    <p class="section-desc">전문 디자이너가 만든 것 같은 카드뉴스를 AI와 함께 몇 분 만에 완성하세요.</p>
+    <div class="samples-showcase">
+      <div class="sample-card">
+        <img src="assets/sample_slide.png" alt="Sample card news slide" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Templates -->
+<section class="templates" id="templates">
+  <div class="section-label">Templates</div>
+  <div class="section-title">다양한 템플릿과 프리셋</div>
+  <p class="section-desc">용도와 브랜드에 맞는 디자인을 선택하세요.</p>
+  <div class="template-grid">
+    <span class="template-chip">Dark</span>
+    <span class="template-chip">Gradient</span>
+    <span class="template-chip">Clean White</span>
+    <span class="template-chip">Bold Color</span>
+    <span class="template-chip">Ocean</span>
+    <span class="template-chip">Sunset</span>
+    <span class="template-chip">Minimal</span>
+    <span class="template-chip">Neon</span>
+    <span class="template-chip">Magazine</span>
+    <span class="template-chip">Pastel</span>
+    <span class="template-chip">Infographic</span>
+    <span class="template-chip">Glass</span>
+  </div>
+  <div class="template-grid" style="margin-top: 16px;">
+    <span class="template-chip">Midnight</span>
+    <span class="template-chip">Cream</span>
+    <span class="template-chip">Rose</span>
+    <span class="template-chip">Purple</span>
+    <span class="template-chip">Forest</span>
+    <span class="template-chip">Beige</span>
+    <span class="template-chip">Peach</span>
+    <span class="template-chip">Lavender</span>
+    <span class="template-chip">Mint</span>
+    <span class="template-chip">Slate</span>
+    <span class="template-chip">Wine</span>
+  </div>
+</section>
+
+<!-- Download CTA -->
+<section class="download-section" id="download">
+  <div class="download-card">
+    <h2>지금 시작하세요</h2>
+    <p>Card News Maker를 다운로드하고 AI 기반 카드뉴스 제작을 경험해보세요.</p>
+    <a href="https://github.com/lnto3408/card-news-maker/releases/latest/download/Card.News.Maker-1.0.0-arm64.dmg" class="btn-primary" id="download-btn-2">
+      <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      무료 다운로드 (macOS)
+    </a>
+    <div class="download-info">
+      <div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        무료 / 개인 사용
+      </div>
+      <div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        macOS (Apple Silicon)
+      </div>
+      <div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        v1.0.0
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="assets/icon.svg" alt="">
+      Card News Maker
+    </div>
+    <div class="footer-links">
+      <a href="https://www.threads.net/@ecomirth_official" target="_blank">Threads</a>
+      <a href="https://www.instagram.com/ecomirth_official" target="_blank">Instagram</a>
+      <a href="https://www.tiktok.com/@ecomirth_official" target="_blank">TikTok</a>
+    </div>
+    <div class="footer-copy">
+      &copy; 2026 ecomirth. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
