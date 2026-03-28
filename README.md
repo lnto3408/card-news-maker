@@ -1,258 +1,146 @@
 # Card News Maker
 
-AI 기반 SNS 카드뉴스 제작 데스크톱 앱
+AI 카드뉴스 메이커 — 주제만 입력하면 끝
 
-<img src="assets/icon_512.png" alt="Card News Maker Icon" width="128">
+<img src="assets/icon_512.png" alt="Card News Maker" width="128">
 
-> Instagram, TikTok, Threads, X(Twitter)용 캐러셀 카드뉴스를 AI로 빠르게 만들고 바로 발행하세요.
+> 주제 하나 입력하면 AI가 리서치, 기획, 디자인을 30초 만에 처리합니다.
+> 완성된 카드뉴스를 Instagram, Threads, TikTok, X에 바로 발행하세요.
 
 ---
 
 ## Download
 
-- [macOS (Apple Silicon) DMG 다운로드](https://github.com/lnto3408/card-news-maker/releases/latest/download/Card.News.Maker-1.0.0-arm64.dmg)
-- Version: 1.0.0
-- Size: ~549MB
+- [macOS (Apple Silicon) DMG 다운로드](https://github.com/lnto3408/card-news-maker/releases/latest)
+- macOS Sequoia / Sonoma (M1 이상)
+
+> 처음 실행 시 보안 경고가 나오면: `시스템 설정 > 개인정보 보호 및 보안 > 확인 없이 열기`
 
 ---
 
-## Features
+## 이렇게 쓰면 됩니다
 
-### 1. Project Management (프로젝트 관리)
+### Step 1. 주제 입력
 
-![Projects View](assets/ss_projects.png)
+![에디터 화면](assets/ss_editor_design.png)
 
-- 전체 프로젝트를 그리드 형태로 관리
-- 카테고리별 자동 분류: AI/테크, 커리어/일, 라이프스타일, 재테크/경제, 뉴스/시사
-- **자동분류** 버튼으로 AI가 주제를 분석하여 카테고리 자동 지정
-- 프로젝트 검색, 정렬 (최신순/오래된순/이름순)
-- 복제, 삭제, 일괄 선택 지원
-- 각 프로젝트 카드에 썸네일, 슬라이드 수, 작성 상태, SNS 발행 여부 표시
-
----
-
-### 2. Carousel Preset (캐러셀 프리셋)
-
-![Carousel Preset](assets/ss_carousel_preset.png)
-
-새 카드뉴스 생성 시 검증된 구조로 빠르게 시작할 수 있는 5가지 프리셋 제공:
-
-| 프리셋 | 설명 | 슬라이드 구성 |
-|--------|------|--------------|
-| 데이터 분석형 | 숫자 중심 콘텐츠 | 8장: 훅 -> CTA |
-| How-to 가이드 | 단계별 설명 | 10장: 훅 -> CTA |
-| 비교 분석형 | A vs B 비교 | 7장: 훅 -> CTA |
-| 트렌드 리포트 | 이슈 분석 | 9장: 훅 -> CTA |
-| 리스트형 | TOP 5/7 리스트 | 6장: 훅 -> CTA |
-
----
-
-### 3. Template Gallery (템플릿 갤러리)
-
-![Template Gallery](assets/ss_template_gallery.png)
-
-- **40+ 빌트인 템플릿**: promotion, notice, product, seasonal, social, ecommerce, brand, business, creator 카테고리
-- 봄맞이 세일, 설 연휴 배송 안내, 할인 쿠폰, Flash Sale, 공지사항 등 실전 템플릿
-- Built-in / My Library 탭으로 구분
-- 내보내기/가져오기로 템플릿 공유 가능
-- "사용하기" 버튼 클릭으로 즉시 적용
-
----
-
-### 4. Editor - Layer System (에디터 - 레이어 시스템)
-
-![Editor Layer System](assets/ss_editor_design.png)
-
-3단 레이아웃의 메인 에디터:
-
-**왼쪽 패널**
-- 주제 입력 및 AI 콘텐츠 생성
-- "오늘의 뉴스" - Google News RSS 연동으로 실시간 뉴스 가져오기
-- AI 생성 방식 선택 (직접 입력 / 프롬프트 템플릿)
-- 슬라이드 수 지정 (1~10장)
-- 레이어 관리: 태그, 제목, 부제, 본문, 이미지 레이어
-- 레이어 순서 변경, 복제, 잠금, 표시/숨기기
-
-**중앙 캔버스**
-- 라이브 프리뷰 (1:1, 3:4, 4:5, 9:16, 16:9 비율)
-- 슬라이드 썸네일 스트립으로 전체 슬라이드 탐색
-- 드래그로 레이어 위치 이동, 코너 핸들로 크기 조절
-- 더블클릭 인라인 텍스트 편집
-- 페이지 번호, 진행 점, 스와이프 화살표 표시
-
-**오른쪽 패널**
-- 슬라이드 템플릿 적용
-- 배경 설정: 없음 / 업로드 / 검색 (Unsplash, Pexels)
-- 배경 오버레이 투명도 조절 (0~100%)
-- 슬라이드별 설정: 페이지 번호, 진행 점, 스와이프 화살표, 안전 영역 표시
-- Quick Edit: 배경 밝기(+/-), 반전, 제목/본문 크기, 여백/간격
-
----
-
-### 5. Editor - Design & Color (에디터 - 디자인 & 컬러)
-
-![Design and Color](assets/ss_editor_design.png)
-
-**12가지 디자인 템플릿**
-- 다크 / 그라디언트 / 클린 화이트
-- 볼드 컬러 / 오션 / 선셋
-- 미니멀 / 네온 / 매거진
-
-**14가지 컬러 프리셋**
-- 배경색, 글자색, 강조색을 HEX 값으로 직접 지정 가능
-- "현재 스타일 전체 적용" 버튼으로 모든 슬라이드에 일괄 적용
-
-**무드 팔레트 (전체 슬라이드 일괄 적용)**
-- 도파민 / 어스 / 오션 / 민트 / 미니멀 / 선셋 등 6가지 무드
-- "슬라이드별 배경색 자동 변이" 기능
-
----
-
-### 6. SNS Publishing (SNS 발행)
-
-![SNS Publishing](assets/ss_sns_publish.png)
-
-- **4개 플랫폼 동시 지원**: Instagram, Threads, X(Twitter), TikTok
-- 플랫폼별 글자 수 표시 (Instagram 2200자, Threads 500자 등)
-- **AI 텍스트 생성**: 캡션, 해시태그를 플랫폼 특성에 맞게 자동 생성
-- 캡션만 / 태그만 복사 버튼
-- **첫 댓글** 자동 작성 (포스팅 후 자동 게시)
-- 최적 발행 시간 표시 (화~목 07-10시, 12-13시, 19-22시 / BEST 수 15:00)
-- "발행하기" 버튼으로 원클릭 게시
-- **출처 관리**: 참고 기사 URL 추가/삭제
-
----
-
-### 7. Overview Mode (전체 보기)
-
-![Overview Mode](assets/ss_overview.png)
-
-- 프로젝트의 모든 슬라이드를 한 화면에서 확인
-- 슬라이드별 예상 읽기 시간 표시 (~15초, ~21초 등)
-- 전체 읽기 시간 합산 표시 (예: 읽기 ~134초)
-- "긴 콘텐츠" 경고 표시
-- 슬라이드 수 확인
-
----
-
-### 8. Settings (설정)
-
-![Settings](assets/ss_settings.png)
-
-**API 키 설정**
-- Google Gemini API Key (AI 콘텐츠 생성용)
-- Google AI Studio에서 무료 발급 가능
-
-**이미지 검색 API (선택)**
-- Pexels API Key (무료)
-- Unsplash Access Key (무료)
-- 키 없이도 기본 이미지 검색 가능
-
-**SNS 계정 연결**
-- X (Twitter): API Key, API Secret, Access Token, Access Secret
-- Instagram, Threads, TikTok 계정 연동
-
----
-
-## System Requirements
-
-| 항목 | 요구사항 |
-|------|---------|
-| OS | macOS (Apple Silicon / M1 이상) |
-| 디스크 | ~600MB 이상 여유 공간 |
-| 네트워크 | AI 생성, 이미지 검색, SNS 발행 시 인터넷 필요 |
-| API Key | Google Gemini API Key (필수, 무료 발급) |
-
----
-
-## Limitations (제약사항)
-
-### Platform
-- **macOS Apple Silicon 전용**: Intel Mac 및 Windows/Linux는 현재 미지원
-- **코드 서명 미포함**: 처음 실행 시 macOS Gatekeeper 경고가 표시됩니다
-  - `시스템 설정 > 개인정보 보호 및 보안 > 확인 없이 열기`에서 허용 필요
-  - 또는 터미널에서 `xattr -cr "/Applications/Card News Maker.app"` 실행
-
-### AI Generation
-- Google Gemini API Key가 필수 (무료 티어 사용 가능)
-- AI 생성 품질은 입력 프롬프트와 주제에 따라 달라질 수 있음
-- API 호출 제한: Google AI Studio 무료 티어 기준 분당 15회, 일 1,500회
-
-### SNS Publishing
-- SNS 발행은 각 플랫폼의 API 키/토큰이 별도로 필요
-- Instagram/Threads는 Meta Developer 앱 등록 필요
-- 각 플랫폼의 API 정책 변경에 따라 발행 기능이 제한될 수 있음
-- 자동 발행 시 플랫폼별 스팸 필터에 의해 일시 차단될 수 있음
-
-### Image & Export
-- 이미지 내보내기는 PNG 포맷만 지원 (PDF, JPG 미지원)
-- 배경 이미지 검색은 Unsplash/Pexels API에 의존 (API 키 없이도 기본 검색 가능)
-- 한 프로젝트당 최대 10장 슬라이드
-
-### Data
-- 프로젝트 데이터는 로컬에만 저장 (클라우드 동기화 없음)
-- 앱 삭제 시 프로젝트 데이터도 함께 삭제됨
-
----
-
-## Tech Stack
-
-| Component | Technology |
-|-----------|-----------|
-| Framework | Electron 33 |
-| AI | Google Gemini 2.0 Flash (@google/generative-ai) |
-| Image Capture | html2canvas 1.4 |
-| News Feed | Google News RSS |
-| Image Search | Unsplash / Pexels |
-| Data Storage | Local JSON (Electron userData) |
-
----
-
-## Bug Report (버그 제보)
-
-아직 초기 버전이라 버그가 있을 수 있습니다. 버그를 발견하시면 GitHub Issues에 등록해주세요.
-
-**[Issues 등록하기](https://github.com/lnto3408/card-news-maker/issues/new)**
-
-### 작성 가이드
-
-버그 리포트에 아래 내용을 포함해주시면 빠르게 해결할 수 있습니다:
+앱을 열고 왼쪽 패널에 주제를 입력합니다.
 
 ```
-## 버그 설명
-어떤 문제가 발생했는지 간단히 설명해주세요.
+예: "2026 청년 주거 정책 총정리"
+```
 
-## 재현 방법
-1. '...' 화면에서
-2. '...' 버튼을 클릭하면
-3. '...' 현상이 발생
+### Step 2. AI 생성 클릭
 
-## 기대 동작
-정상적으로 동작했을 때 어떻게 되어야 하는지 설명해주세요.
+**AI 생성** 버튼 하나면 끝. AI가 알아서:
+
+1. Google 뉴스에서 관련 기사를 찾고
+2. 핵심 내용을 뽑아 슬라이드를 기획하고
+3. 디자인과 컬러를 자동 적용합니다
+
+**약 30초 후 완성된 카드뉴스가 에디터에 로드됩니다.**
+
+### Step 3. 확인하고 내보내기
+
+- 마음에 안 드는 부분은 클릭해서 바로 수정
+- 전체 슬라이드를 PNG로 한 번에 내보내기 (`Cmd+E`)
+
+### Step 4. SNS 발행 (선택)
+
+Instagram, Threads, TikTok, X 중 원하는 채널에 바로 발행.
+플랫폼별 캡션과 해시태그도 자동 생성됩니다.
+
+---
+
+## 뉴스에서 바로 만들기
+
+"오늘의 뉴스" 버튼을 누르면 실시간 트렌딩 뉴스가 뜹니다.
+관심 가는 뉴스를 클릭하면 AI가 바로 카드뉴스로 변환합니다.
+
+**뉴스 선택 → AI가 분석 → 카드뉴스 완성. 클릭 2번이면 끝.**
+
+---
+
+## 주요 기능
+
+### AI 자동 생성
+- 주제 입력만으로 리서치 → 기획 → 디자인 → 완성
+- 8가지 콘텐츠 구조 프리셋 (비교분석, 체크리스트, 트렌드 등)
+- Google News 연동으로 실시간 뉴스 카드뉴스 변환
+
+### 에디터
+- 드래그로 위치 이동, 더블클릭으로 텍스트 수정
+- 12가지 디자인 템플릿 x 4가지 무드 컬러
+- 이미지 검색/삽입, 배경 투명도 조절
+- Undo/Redo, 복제, 순서 변경
+
+### SNS 발행
+- Instagram / Threads / TikTok / X 동시 발행
+- 플랫폼별 캡션, 해시태그, 첫 댓글 자동 생성
+- 채널 프로필 설정으로 CTA 자동 반영
+
+### 내보내기
+- PNG 2배 해상도 (1080x1350)
+- 전체 슬라이드 일괄 내보내기
+
+---
 
 ## 스크린샷
-가능하면 문제 화면을 캡처해서 첨부해주세요.
 
-## 환경 정보
-- macOS 버전: (예: Sequoia 15.3)
-- 앱 버전: (예: 1.0.0)
-```
+### 프로젝트 관리
+![프로젝트](assets/ss_projects.png)
 
-### 자주 발생할 수 있는 문제
+### 템플릿 갤러리
+![템플릿](assets/ss_template_gallery.png)
 
-| 증상 | 원인 | 해결 방법 |
-|------|------|----------|
-| 앱이 열리지 않음 | macOS Gatekeeper 차단 | 시스템 설정 > 개인정보 보호 및 보안 > 허용, 또는 터미널에서 `xattr -cr "/Applications/Card News Maker.app"` |
-| AI 생성이 안 됨 | API Key 미설정 또는 할당량 초과 | 설정에서 Google Gemini API Key 확인. [aistudio.google.com](https://aistudio.google.com)에서 무료 발급 |
-| 이미지 검색 결과 없음 | API Key 미등록 | 설정에서 Pexels 또는 Unsplash API Key 등록 (선택사항) |
-| SNS 발행 실패 | API 토큰 만료 또는 미설정 | 설정에서 각 플랫폼 API 키/토큰 재확인 |
-| 내보내기 시 빈 이미지 | 배경 이미지 로딩 지연 | 슬라이드 프리뷰가 완전히 로드된 후 다시 내보내기 |
+### SNS 발행
+![SNS](assets/ss_sns_publish.png)
+
+### 전체 보기
+![Overview](assets/ss_overview.png)
 
 ---
 
-## License
+## 시작하기 전에
 
-Personal use only.
+### API 키 설정 (1분)
+
+앱 실행 → 좌측 **설정** 클릭:
+
+1. **Google Gemini API Key** (필수, 무료)
+   - [aistudio.google.com](https://aistudio.google.com)에서 발급
+   - 설정 화면에 붙여넣기 → 저장
+
+> 이것만 하면 AI 생성 기능을 바로 쓸 수 있습니다.
+> 이미지 검색(Pexels/Unsplash)과 SNS 발행 API는 선택사항입니다.
+
+---
+
+## 키보드 단축키
+
+| 단축키 | 동작 |
+|--------|------|
+| `Cmd+S` | 저장 |
+| `Cmd+E` | 내보내기 |
+| `Cmd+N` | 새 프로젝트 |
+| `Cmd+D` | 슬라이드 복제 |
+| `Cmd+Z` | 되돌리기 |
+| `← →` | 슬라이드 이동 |
+
+---
+
+## 제한사항
+
+- macOS Apple Silicon 전용 (M1 이상)
+- 코드 서명 미포함 (첫 실행 시 보안 설정 필요)
+- AI 생성에 인터넷 연결 필요
+- Gemini 무료 티어: 분당 15회, 일 1,500회
+
+---
+
+## Bug Report
+
+문제가 있으면 [Issues](https://github.com/lnto3408/card-news-maker/issues/new)에 알려주세요.
 
 ---
 
